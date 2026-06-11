@@ -15,7 +15,7 @@ import { SatelliteField } from './SatelliteField';
 import { AsteroidBelt } from './AsteroidBelt';
 import { OrbitalStation } from './OrbitalStation';
 import { TransmissionGateway } from './TransmissionGateway';
-import { CameraController, getZoneForProgress } from './CameraController';
+import { CameraController } from './CameraController';
 import { usePortfolioStore } from '@/store/usePortfolioStore';
 import SpaceMusic from '@/components/SpaceMusic';
 import * as THREE from 'three';

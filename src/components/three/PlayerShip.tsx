@@ -196,7 +196,7 @@ function DeltaWing({ side }: { side: -1 | 1 }) {
 }
 
 // ── Main export ──────────────────────────────────────────────────
-export function PlayerShip({ scrollProgress, warpActive = false }: { scrollProgress: number; warpActive?: boolean }) {
+export function PlayerShip({ scrollProgress, warpActive: _warpActive = false }: { scrollProgress: number; warpActive?: boolean }) {
   const shipGroup = useRef<THREE.Group>(null);
   const shipModel = useRef<THREE.Group>(null);
 

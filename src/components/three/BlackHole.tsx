@@ -5,7 +5,7 @@
 //   Disk Speed: 0.58 | Lensing: 2.2 | Stars: 15000 | Exposure: 0.47
 // ================================================================
 import { useRef, useMemo } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 interface BlackHoleProps {
@@ -345,7 +345,7 @@ export function BlackHole({ position = [0, 0, -350] }: BlackHoleProps) {
 
       {/* ── Event Horizon — writes depth + paints black, occludes all ── */}
       {/* renderOrder 1: renders before disk/rings so depth is set first */}
-      <mesh renderOrder={1} onUpdate={self => { self.material.depthWrite = true; }}>
+      <mesh renderOrder={1}>
         <sphereGeometry args={[EH_RADIUS, 64, 64]} />
         <meshBasicMaterial color="#000000" depthWrite={true} />
       </mesh>
