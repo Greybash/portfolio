@@ -31,7 +31,7 @@ function buildDiskGeometry(innerR: number, outerR: number, segments: number, rin
     const r = innerR + (outerR - innerR) * t;
     for (let j = 0; j <= segments; j++) {
       const theta = (j / segments) * Math.PI * 2;
-      pos.push(r * Math.cos(theta), 0, r * Math.sin(theta));
+      pos.push(r * Math.cos(theta), r * Math.sin(theta), 0);
       radii.push(t);
       angles.push(theta);
     }
