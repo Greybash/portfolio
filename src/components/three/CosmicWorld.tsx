@@ -4,7 +4,7 @@
 // lighting, and atmospheric effects
 // ============================================================
 
-import { useEffect, useState, Suspense } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { EffectComposer, Bloom, Vignette, ChromaticAberration } from '@react-three/postprocessing';
 import { BlendFunction } from 'postprocessing';
@@ -264,18 +264,38 @@ export function CosmicWorld() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [musicEnabled, setMusicEnabled] = useState(true);
 
+  // Touch-to-scroll: convert swipe gestures into window scroll
+  // so the scroll-based 3D navigation works on mobile
+  const touchStartY = useRef(0);
+  const touchLastY  = useRef(0);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+    touchLastY.current  = e.touches[0].clientY;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    const dy = touchLastY.current - e.touches[0].clientY;  // positive = swipe up = scroll down
+    touchLastY.current = e.touches[0].clientY;
+    window.scrollBy({ top: dy * 4.5, behavior: 'auto' });  // multiply for sensitivity
+  };
+
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: 1, background: '#020205' }}>
+    <div
+      style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: 1, background: '#020205' }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+    >
       {/* Space Music */}
       <SpaceMusic enabled={musicEnabled} volume={0.12} />
 
-      {/* Music toggle */}
+      {/* Music toggle — top-right corner, compact on mobile */}
       <button
         onClick={() => setMusicEnabled(!musicEnabled)}
-        className="fixed bottom-20 right-6 z-50 flex items-center gap-2 px-3 py-2 rounded-lg text-xs border border-[#F5A62340] text-[#F5A623] hover:bg-[#F5A62320] transition-all cursor-pointer pointer-events-auto"
+        className="fixed top-3 right-10 sm:top-4 sm:right-12 z-50 flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-2 rounded-lg text-[10px] sm:text-xs border border-[#F5A62340] text-[#F5A623] hover:bg-[#F5A62320] transition-all cursor-pointer pointer-events-auto"
         style={{ fontFamily: 'monospace' }}
       >
-        {musicEnabled ? '🔊' : '🔇'} {musicEnabled ? 'MUSIC ON' : 'MUSIC OFF'}
+        {musicEnabled ? '🔊' : '🔇'} <span className="hidden sm:inline">{musicEnabled ? 'MUSIC ON' : 'MUSIC OFF'}</span>
       </button>
 
       {!isLoaded && (
@@ -310,7 +330,7 @@ export function CosmicWorld() {
           console.error('❌ Canvas error:', error);
         }}
         style={{ width: '100%', height: '100%', background: '#020205' }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
       >
         <Suspense fallback={
           <mesh>
