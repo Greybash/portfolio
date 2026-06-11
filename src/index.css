@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 2%;
+    --foreground: 220 20% 94%;
+    --card: 0 0% 4%;
+    --card-foreground: 220 20% 94%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 220 20% 94%;
+    --primary: 37 90% 55%;
+    --primary-foreground: 0 0% 2%;
+    --secondary: 220 40% 8%;
+    --secondary-foreground: 220 20% 94%;
+    --muted: 220 20% 12%;
+    --muted-foreground: 220 10% 60%;
+    --accent: 220 40% 8%;
+    --accent-foreground: 220 20% 94%;
+    --destructive: 345 80% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 20% 12%;
+    --input: 220 20% 12%;
+    --ring: 37 90% 55%;
+    --radius: 0.75rem;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: #020205;
+    color: #E8ECF1;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #020205;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1A1A2E;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #F5A62340;
+  }
+
+  /* Selection */
+  ::selection {
+    background: #F5A62340;
+    color: #E8ECF1;
+  }
+}
+
+@layer components {
+  .cosmic-text-glow {
+    text-shadow: 0 0 20px rgba(245, 166, 35, 0.4), 0 0 40px rgba(245, 166, 35, 0.2);
+  }
+
+  .cosmic-border-glow {
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.15), inset 0 0 20px rgba(245, 166, 35, 0.05);
+  }
+
+  .glass-panel {
+    background: rgba(10, 10, 18, 0.92);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(26, 26, 46, 0.8);
+  }
+
+  .glass-panel-strong {
+    background: rgba(5, 5, 10, 0.96);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(245, 166, 35, 0.15);
+  }
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes rotate-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes warp-stretch {
+  0% { transform: scaleY(1); }
+  50% { transform: scaleY(1.5); }
+  100% { transform: scaleY(1); }
+}
+
+/* Utility classes for animations */
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-scanline {
+  animation: scanline 8s linear infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 60s linear infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+/* Starfield background for loading */
+.stars-bg {
+  background-image: 
+    radial-gradient(1px 1px at 20px 30px, rgba(232, 236, 241, 0.3), transparent),
+    radial-gradient(1px 1px at 40px 70px, rgba(245, 166, 35, 0.2), transparent),
+    radial-gradient(1px 1px at 50px 160px, rgba(0, 212, 255, 0.15), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(232, 236, 241, 0.2), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(123, 97, 255, 0.15), transparent),
+    radial-gradient(2px 2px at 160px 120px, rgba(245, 166, 35, 0.25), transparent);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
